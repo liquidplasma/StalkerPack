@@ -1,0 +1,3 @@
+displayName = S.T.A.L.K.E.R. Content Pack
+author = marvin
+version = 0.1

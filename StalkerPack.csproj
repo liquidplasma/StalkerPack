@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Import tModLoader mod properties -->
+	<Import Project="..\tModLoader.targets" />
+
+	<!-- General -->
+	<PropertyGroup>
+		
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Items\Weapons\AssaultRifles\Ak74.png" />
+	  <None Remove="Items\Weapons\AssaultRifles\AKS74U.png" />
+	  <None Remove="Items\Weapons\AssaultRifles\F2000.png" />
+	  <None Remove="Items\Weapons\AssaultRifles\L85.png" />
+	  <None Remove="Items\Weapons\AssaultRifles\MP5.png" />
+	  <None Remove="Items\Weapons\AssaultRifles\Sg550.png" />
+	  <None Remove="Items\Weapons\Pistols\Deagle.png" />
+	  <None Remove="Items\Weapons\Pistols\Fora12.png" />
+	  <None Remove="Items\Weapons\Pistols\Item_1265.png" />
+	  <None Remove="Items\Weapons\Pistols\Item_164.png" />
+	  <None Remove="Items\Weapons\Pistols\Item_95.png" />
+	  <None Remove="Items\Weapons\Rifles\SVD.png" />
+	  <None Remove="Items\Weapons\Rifles\VSS.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Items\Consumables\" />
+	</ItemGroup>
+
+	<!-- References -->
+
+</Project>

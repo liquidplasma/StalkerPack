@@ -1,0 +1,51 @@
+Items: {
+	F2000: {
+		DisplayName: FT 200M
+		Tooltip: ""
+	}
+
+	AKS74U: {
+		DisplayName: Akm 74/2U
+		Tooltip: ""
+	}
+
+	L85: {
+		DisplayName: IL 86
+		Tooltip: ""
+	}
+
+	MP5: {
+		DisplayName: Viper 5
+		Tooltip: ""
+	}
+
+	SG550: {
+		DisplayName: SGI-5k
+		Tooltip: ""
+	}
+
+	AK74: {
+		DisplayName: Akm 74/2
+		Tooltip: ""
+	}
+
+	Deagle: {
+		DisplayName: Black Kite
+		Tooltip: ""
+	}
+
+	Fora12: {
+		DisplayName: Fort-12Mk2
+		Tooltip: ""
+	}
+
+	SVD: {
+		DisplayName: SVDm-2
+		Tooltip: ""
+	}
+
+	VSS: {
+		DisplayName: Vintar BC
+		Tooltip: ""
+	}
+}
