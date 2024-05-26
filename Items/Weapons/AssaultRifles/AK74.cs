@@ -26,5 +26,7 @@
         {
             return new(-18, 2);
         }
+
+        public override void AddRecipes() => RegisterAsMegashark();
     }
 }

@@ -1,8 +1,8 @@
 ﻿using StalkerPack.Helpers;
 using StalkerPack.Items.Weapons.Pistols;
 using StalkerPack.Items.Weapons.Rifles;
-using System.Collections;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 
 namespace StalkerPack
 {
@@ -24,6 +24,12 @@ namespace StalkerPack
                 }
             }
             base.OnSpawn(item, source);
+        }
+
+        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+        {
+            if (item.type == ItemID.PlanteraBossBag)
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Deagle>(), 7));
         }
     }
 }

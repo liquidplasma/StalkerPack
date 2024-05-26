@@ -30,6 +30,7 @@ namespace StalkerPack.Items.Weapons
                 MaxInstances = 0
             };
             Item.autoReuse = true;
+            Item.value = 100 * Item.damage;
             base.SetDefaults();
         }
 
@@ -37,6 +38,17 @@ namespace StalkerPack.Items.Weapons
         {
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(Spread));
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+        }
+
+        public void RegisterAsMegashark()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Minishark)
+                .AddIngredient(ItemID.IllegalGunParts)
+                .AddIngredient(ItemID.SharkFin, 5)
+                .AddIngredient(ItemID.SoulofMight, 20)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using StalkerPack.Items.Weapons.Rifles;
-
-namespace StalkerPack.Items.Weapons.Pistols
+﻿namespace StalkerPack.Items.Weapons.Pistols
 {
     public class Fora12 : BaseSemi
     {
@@ -9,8 +7,8 @@ namespace StalkerPack.Items.Weapons.Pistols
         public override void SetDefaults()
         {
             Item.damage = 17;
-            Item.useTime = Item.useAnimation = 17;
-            Item.rare = ItemRarityID.Yellow;
+            Item.useTime = Item.useAnimation = 16;
+            Item.rare = ItemRarityID.Blue;
             Item.width = 40;
             Item.height = 24;
             base.SetDefaults();

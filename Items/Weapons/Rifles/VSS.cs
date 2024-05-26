@@ -1,4 +1,5 @@
-﻿namespace StalkerPack.Items.Weapons.Rifles
+﻿
+namespace StalkerPack.Items.Weapons.Rifles
 {
     public class VSS : BaseSemi
     {
@@ -6,12 +7,17 @@
 
         public override void SetDefaults()
         {
-            Item.damage = 27;
-            Item.useTime = Item.useAnimation = 27;
-            Item.rare = ItemRarityID.Yellow;
+            Item.damage = 24;
+            Item.crit = 11;
+            Item.useTime = Item.useAnimation = 15;
+            Item.rare = ItemRarityID.Blue;
             Item.width = 56;
             Item.height = 18;
             base.SetDefaults();
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new(-10, -1);
         }
     }
 }

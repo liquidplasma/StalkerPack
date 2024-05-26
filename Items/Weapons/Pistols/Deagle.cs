@@ -1,12 +1,4 @@
-﻿using StalkerPack.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.DataStructures;
-
-namespace StalkerPack.Items.Weapons.Pistols
+﻿namespace StalkerPack.Items.Weapons.Pistols
 {
     public class Deagle : BaseSemi
     {
@@ -15,18 +7,18 @@ namespace StalkerPack.Items.Weapons.Pistols
         public override void SetDefaults()
         {
             Item.damage = 86;
-            Item.useTime = Item.useAnimation = 20;
+            Item.useTime = Item.useAnimation = 24;
+            Item.autoReuse = true;
             Item.rare = ItemRarityID.Yellow;
             Item.width = 40;
             Item.height = 24;
+            Item.scale = 0.8f;
             base.SetDefaults();
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override Vector2? HoldoutOffset()
         {
-            Projectile shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-            shot.StalkerGlobal().fromDeagle = true;
-            return false;
+            return new(-4, 1);
         }
     }
 }

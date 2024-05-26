@@ -14,11 +14,6 @@ namespace StalkerPack.Helpers
     /// </summary>
     public static class ExtensionMethods
     {
-        public static StalkerPackGlobalProjectile StalkerGlobal(this Projectile projectile)
-        {
-            return projectile.GetGlobalProjectile<StalkerPackGlobalProjectile>();
-        }
-
         /// <summary>
         /// Replaces this item with some other item
         /// </summary>

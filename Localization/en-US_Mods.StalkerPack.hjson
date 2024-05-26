@@ -48,4 +48,9 @@ Items: {
 		DisplayName: Vintar BC
 		Tooltip: ""
 	}
+
+	APS: {
+		DisplayName: A P S
+		Tooltip: ""
+	}
 }

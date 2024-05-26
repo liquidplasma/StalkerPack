@@ -6,11 +6,13 @@
 
         public override void SetDefaults()
         {
-            Item.damage = 167;
-            Item.useTime = Item.useAnimation = 29;
+            Item.damage = 159;
+            Item.crit = 29;
+            Item.useTime = Item.useAnimation = 26;
             Item.rare = ItemRarityID.Yellow;
             Item.width = 62;
             Item.height = 24;
+            Item.autoReuse = true;
             base.SetDefaults();
         }
 
@@ -19,6 +21,10 @@
             if (type == ProjectileID.Bullet)
                 type = ProjectileID.BulletHighVelocity;
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new(-10, 0);
         }
     }
 }
