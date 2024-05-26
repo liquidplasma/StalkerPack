@@ -8,6 +8,13 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Buffs\GoodTunes.png" />
+	  <None Remove="Items\Consumables\Item_2266.png" />
+	  <None Remove="Items\Consumables\Item_4013.png" />
+	  <None Remove="Items\Consumables\Item_4015.png" />
+	  <None Remove="Items\Consumables\Item_4018.png" />
+	  <None Remove="Items\Consumables\Item_4037.png" />
+	  <None Remove="Items\Other\Guitar.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\Ak74.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\AKS74U.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\F2000.png" />
@@ -21,9 +28,6 @@
 	  <None Remove="Items\Weapons\Pistols\Item_95.png" />
 	  <None Remove="Items\Weapons\Rifles\SVD.png" />
 	  <None Remove="Items\Weapons\Rifles\VSS.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Items\Consumables\" />
 	</ItemGroup>
 
 	<!-- References -->

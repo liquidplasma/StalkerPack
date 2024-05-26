@@ -50,7 +50,21 @@ Items: {
 	}
 
 	APS: {
-		DisplayName: A P S
+		DisplayName: Stechkin APS
 		Tooltip: ""
+	}
+
+	Guitar: {
+		DisplayName: Guitar
+		Tooltip: ""
+	}
+}
+
+Projectiles.GuitarProjectile.DisplayName: Guitar Projectile
+
+Buffs: {
+	GoodTunes: {
+		DisplayName: Good Tunes
+		Description: You're hearing some good tunes
 	}
 }

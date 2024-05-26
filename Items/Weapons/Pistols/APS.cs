@@ -10,6 +10,7 @@
             Item.damage = 20;
             Item.rare = ItemRarityID.Pink;
             Item.useTime = Item.useAnimation = 6;
+            Item.scale = 0.8f;
             base.SetDefaults();
         }
 

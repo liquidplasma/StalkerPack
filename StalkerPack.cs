@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+global using Microsoft.Xna.Framework;
+global using Terraria;
+global using Terraria.Audio;
+global using Terraria.ID;
+global using Terraria.ModLoader;
+global using static StalkerPack.Helpers.ExtensionMethods;
 
 namespace StalkerPack
 {
