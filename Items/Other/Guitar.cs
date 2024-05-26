@@ -19,5 +19,14 @@ namespace StalkerPack.Items.Other
             if (player.ownedProjectileCounts[ModContent.ProjectileType<GuitarProjectile>()] < 1)
                 BetterNewProjectile(player, player.GetSource_ItemUse(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<GuitarProjectile>(), 0, 0, player.whoAmI);
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Wood, 5)
+                .AddIngredient(ItemID.WhiteString)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+        }
     }
 }

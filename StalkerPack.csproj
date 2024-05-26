@@ -8,12 +8,14 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Buffs\empty.png" />
+	  <None Remove="Buffs\Energized.png" />
 	  <None Remove="Buffs\GoodTunes.png" />
-	  <None Remove="Items\Consumables\Item_2266.png" />
-	  <None Remove="Items\Consumables\Item_4013.png" />
-	  <None Remove="Items\Consumables\Item_4015.png" />
-	  <None Remove="Items\Consumables\Item_4018.png" />
-	  <None Remove="Items\Consumables\Item_4037.png" />
+	  <None Remove="Items\Consumables\Bread.png" />
+	  <None Remove="Items\Consumables\DietSausage.png" />
+	  <None Remove="Items\Consumables\EnergyDrink.png" />
+	  <None Remove="Items\Consumables\TouristsBreakfast.png" />
+	  <None Remove="Items\Consumables\Vodka.png" />
 	  <None Remove="Items\Other\Guitar.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\Ak74.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\AKS74U.png" />

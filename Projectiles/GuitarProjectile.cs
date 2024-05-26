@@ -11,9 +11,6 @@ namespace StalkerPack.Projectiles
     public class GuitarProjectile : ModProjectile
     {
         private Player Player => Main.player[Projectile.owner];
-        private Vector2 MouseAim;
-
-        private float armMovement = 0f;
 
         private bool
             MouseRightPressed,
@@ -26,6 +23,8 @@ namespace StalkerPack.Projectiles
         private SlotId MusicID;
 
         private ref float Timer => ref Projectile.ai[0];
+        private ref float ArmMovement => ref Projectile.ai[1];
+
         public override string Texture => "StalkerPack/Items/Other/Guitar";
 
         public override void SetDefaults()
@@ -49,60 +48,57 @@ namespace StalkerPack.Projectiles
 
         public override bool PreAI()
         {
-            if (MouseLeftPressed && !SoundEngine.TryGetActiveSound(MusicID, out MusicPlaying))
-                MusicID = SoundEngine.PlaySound(GuitarMusic, Player.position);
-
-            if (MusicPlaying != null)
-            {
-                Notes();
-                MusicPlaying.Position = Player.position;
-                if (MouseRightPressed)
-                    MusicPlaying.Stop();
-            }
             Projectile.KeepAliveIfOwnerIsAlive(Player);
+            if (Player.HeldItem.type != ModContent.ItemType<Guitar>())
+                Projectile.Kill();
             return base.PreAI();
+        }
+
+        public override bool ShouldUpdatePosition()
+        {
+            return true;
         }
 
         public override void AI()
         {
             Timer++;
-            if (Player.whoAmI == Main.myPlayer)
+            if (Player.whoAmI == Main.myPlayer && !Player.mouseInterface && !Main.mapFullscreen)
             {
-                MouseAim = Main.MouseWorld;
-                if (!Player.mouseInterface && !Main.mapFullscreen)
-                {
-                    MouseRightPressed = Main.mouseRight;
-                    MouseLeftPressed = Main.mouseLeft;
-                }
+                MouseRightPressed = Main.mouseRight;
+                MouseLeftPressed = Main.mouseLeft;
                 Projectile.netUpdate = true;
             }
 
-            Vector2 pos = Player.MountedCenter + new Vector2(12 * Player.direction, 0);
-            Projectile.Center = pos;
-            Projectile.spriteDirection = Player.direction;
-            Player.heldProj = Projectile.whoAmI;
+            if (MouseLeftPressed && !SoundEngine.TryGetActiveSound(MusicID, out MusicPlaying))
+                MusicID = SoundEngine.PlaySound(GuitarMusic, Player.position);
 
-            if (Player.HeldItem.type != ModContent.ItemType<Guitar>())
-            {
-                MusicPlaying?.Stop();
+            if (MouseRightPressed)
                 Projectile.Kill();
-            }
+
             if (MusicPlaying != null && MusicPlaying.IsPlaying)
             {
-                Player.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
-                Player.AddBuff(BuffID.Sunflower, 2);
+                Notes();
                 GuitarBuff();
+                MusicPlaying.Position = Player.position;
                 if (Timer % 60 == 0)
-                    armMovement = 0.33f;
+                    ArmMovement = 0.33f;
                 else if (Timer % 30 == 0)
-                    armMovement = 0f;
-                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + armMovement) * -Player.direction);
+                    ArmMovement = 0f;
+                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
+                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
+
             }
             else
             {
                 Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
+                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
             }
-            base.AI();
+
+            Projectile.velocity = Vector2.Zero;
+            Vector2 pos = Player.MountedCenter + new Vector2(12 * Player.direction, 0);
+            Projectile.Center = pos;
+            Projectile.spriteDirection = Player.direction;
+            Player.heldProj = Projectile.whoAmI;
         }
 
         private void Notes()
@@ -117,34 +113,36 @@ namespace StalkerPack.Projectiles
 
         private void GuitarBuff()
         {
-            if (MusicPlaying != null && MusicPlaying.IsPlaying)
+            Player.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
+            Player.AddBuff(BuffID.Sunflower, 2);
+            for (int i = 0; i < Main.maxPlayers; i++)
             {
-                for (int i = 0; i < Main.maxPlayers; i++)
+                Player otherPlayer = Main.player[i];
+                if (otherPlayer.active && !otherPlayer.dead && otherPlayer.DistanceSQ(Player.Center) < 640 * 640 && otherPlayer.whoAmI != Player.whoAmI)
                 {
-                    Player otherPlayer = Main.player[i];
-                    if (!otherPlayer.active)
-                        continue;
-                    if(otherPlayer.DistanceSQ(Player.Center) < 40 * 40 && otherPlayer.whoAmI != Player.whoAmI)
-                    {
-                        otherPlayer.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
-                        otherPlayer.AddBuff(BuffID.Sunflower, 2);
-                    }                    
-                }                
+                    otherPlayer.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
+                    otherPlayer.AddBuff(BuffID.Sunflower, 2);
+                }
             }
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            if (SoundEngine.TryGetActiveSound(MusicID, out var music))
+                music.Stop();
+            base.OnKill(timeLeft);
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(MouseRightPressed);
             writer.Write(MouseLeftPressed);
-            writer.WriteVector2(MouseAim);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             MouseRightPressed = reader.ReadBoolean();
             MouseLeftPressed = reader.ReadBoolean();
-            MouseAim = reader.ReadVector2();
         }
     }
 }

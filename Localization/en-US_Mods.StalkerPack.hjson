@@ -56,7 +56,60 @@ Items: {
 
 	Guitar: {
 		DisplayName: Guitar
-		Tooltip: ""
+		Tooltip:
+			'''
+			Left click to play a campfire song
+			Right click to stop it
+			'''
+	}
+
+	Vodka: {
+		DisplayName: Cossacks vodka
+		Tooltip:
+			'''
+			Vodka made by the GSC company.
+			Goes down easily and significantly reduces the effects of radiation,
+			but for obvious reasons should be enjoyed in moderation.
+			'''
+	}
+
+	Bread: {
+		DisplayName: Bread
+		Tooltip:
+			'''
+			Hard to say who manages to bake these loaves in the Zone,
+			but the bread isn't contaminated and is perfectly edible.
+			Well, at least none of the stalkers have complained about it.
+			'''
+	}
+
+	DietSausage: {
+		DisplayName: Diet Sausage
+		Tooltip:
+			'''
+			Made from a mix of chicken and soya, the "diet" sausage is often,
+			for lack of other options, a stalker's breakfast, lunch and dinner in one.
+			'''
+	}
+
+	EnergyDrink: {
+		DisplayName: Energy Drink
+		Tooltip:
+			'''
+			This is an excellent energy drink consisting of caffeine,
+			taurine and a mixture of rejuvenating vitamins.
+			Just the ticket when you're too tired to push forward!
+			Increases movement speed
+			'''
+	}
+
+	TouristsBreakfast: {
+		DisplayName: Tourists Breakfast
+		Tooltip:
+			'''
+			Canned food from an army warehouse raided by stalkers.
+			The best-before period hasn't expired yet.
+			'''
 	}
 }
 
@@ -66,5 +119,10 @@ Buffs: {
 	GoodTunes: {
 		DisplayName: Good Tunes
 		Description: You're hearing some good tunes
+	}
+
+	Energized: {
+		DisplayName: Energized
+		Description: +25% increased movement speed
 	}
 }

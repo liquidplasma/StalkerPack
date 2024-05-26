@@ -8,6 +8,12 @@
         public virtual SoundStyle ShootNoise { get; }
         public int Spread = 1;
 
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 1;
+            base.SetStaticDefaults();
+        }
+
         public override void SetDefaults()
         {
             Item.useAmmo = AmmoID.Bullet;

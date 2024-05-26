@@ -11,6 +11,12 @@ namespace StalkerPack.Items.Weapons
     {
         public virtual SoundStyle ShootNoise { get; }
 
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 1;
+            base.SetStaticDefaults();
+        }
+
         public override void SetDefaults()
         {
             Item.useAmmo = AmmoID.Bullet;
@@ -29,12 +35,14 @@ namespace StalkerPack.Items.Weapons
             Item.value = 100 * Item.damage;
             base.SetDefaults();
         }
+
         public override void HoldItem(Player player)
         {
             if (Item.ModItem is SVD || Item.ModItem is VSS)
                 player.scope = true;
             base.HoldItem(player);
         }
+
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (Item.ModItem is Deagle)
@@ -43,6 +51,7 @@ namespace StalkerPack.Items.Weapons
             }
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (Item.ModItem is Deagle)
