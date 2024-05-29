@@ -1,5 +1,4 @@
-﻿using StalkerPack.Helpers;
-using StalkerPack.Projectiles;
+﻿using StalkerPack.Projectiles;
 
 namespace StalkerPack.Items.Other
 {

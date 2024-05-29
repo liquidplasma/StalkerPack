@@ -4,6 +4,7 @@ global using Terraria.Audio;
 global using Terraria.ID;
 global using Terraria.ModLoader;
 global using static StalkerPack.Helpers.ExtensionMethods;
+global using static StalkerPack.Helpers.HelperStats;
 
 namespace StalkerPack
 {

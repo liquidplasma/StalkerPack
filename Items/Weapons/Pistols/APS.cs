@@ -11,6 +11,7 @@
             Item.rare = ItemRarityID.Pink;
             Item.useTime = Item.useAnimation = 6;
             Item.scale = 0.8f;
+            Item.value = ContentSamples.ItemsByType[ItemID.Uzi].value;
             base.SetDefaults();
         }
 

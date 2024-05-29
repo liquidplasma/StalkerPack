@@ -30,7 +30,6 @@
                 MaxInstances = 0
             };
             Item.autoReuse = true;
-            Item.value = 100 * Item.damage;
             base.SetDefaults();
         }
 

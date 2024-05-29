@@ -11,25 +11,43 @@
 	  <None Remove="Buffs\empty.png" />
 	  <None Remove="Buffs\Energized.png" />
 	  <None Remove="Buffs\GoodTunes.png" />
+	  <None Remove="Items\Ammo\BaseWarheadItem.png" />
+	  <None Remove="Items\Ammo\GSH7VT.png" />
+	  <None Remove="Items\Ammo\OG7V.png" />
+	  <None Remove="Items\Ammo\PG7V.png" />
+	  <None Remove="Items\Ammo\PG7VL.png" />
+	  <None Remove="Items\Armor\BanditHead.png" />
+	  <None Remove="Items\Armor\BanditHead_Head.png" />
+	  <None Remove="Items\Armor\GasMask.png" />
+	  <None Remove="Items\Armor\GasMask_head.png" />
 	  <None Remove="Items\Consumables\Bread.png" />
 	  <None Remove="Items\Consumables\DietSausage.png" />
 	  <None Remove="Items\Consumables\EnergyDrink.png" />
 	  <None Remove="Items\Consumables\TouristsBreakfast.png" />
 	  <None Remove="Items\Consumables\Vodka.png" />
 	  <None Remove="Items\Other\Guitar.png" />
+	  <None Remove="Items\Other\Oasis.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\Ak74.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\AKS74U.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\F2000.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\L85.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\MP5.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\Sg550.png" />
+	  <None Remove="Items\Weapons\Explosive\RPG7u.png" />
 	  <None Remove="Items\Weapons\Pistols\APS.png" />
+	  <None Remove="Items\Weapons\Pistols\BerettaM9.png" />
 	  <None Remove="Items\Weapons\Pistols\Deagle.png" />
 	  <None Remove="Items\Weapons\Pistols\Fora12.png" />
-	  <None Remove="Items\Weapons\Pistols\Item_164.png" />
-	  <None Remove="Items\Weapons\Pistols\Item_95.png" />
+	  <None Remove="Items\Weapons\Pistols\PMM.png" />
 	  <None Remove="Items\Weapons\Rifles\SVD.png" />
 	  <None Remove="Items\Weapons\Rifles\VSS.png" />
+	  <None Remove="Items\Weapons\Shotguns\Protecta.png" />
+	  <None Remove="Items\Weapons\Shotguns\SPAS12.png" />
+	  <None Remove="Items\Weapons\Shotguns\Winchester1300.png" />
+	  <None Remove="Projectiles\Warheads\GSH7VTProj.png" />
+	  <None Remove="Projectiles\Warheads\OG7VProj.png" />
+	  <None Remove="Projectiles\Warheads\PG7VLProj.png" />
+	  <None Remove="Projectiles\Warheads\PG7VProj.png" />
 	</ItemGroup>
 
 	<!-- References -->

@@ -12,6 +12,8 @@
             Item.damage = 26;
             Item.rare = ItemRarityID.Pink;
             Item.useTime = Item.useAnimation = 6;
+            Item.value = ContentSamples.ItemsByType[ItemID.Megashark].value;
+
             base.SetDefaults();
         }
 

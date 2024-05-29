@@ -11,6 +11,7 @@
             Item.rare = ItemRarityID.Blue;
             Item.width = 40;
             Item.height = 24;
+            Item.value = ContentSamples.ItemsByType[ItemID.TheUndertaker].value;
             base.SetDefaults();
         }
     }

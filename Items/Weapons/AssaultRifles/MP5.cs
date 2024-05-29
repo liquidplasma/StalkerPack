@@ -12,6 +12,7 @@
             Item.damage = 6;
             Item.rare = ItemRarityID.Green;
             Item.useTime = Item.useAnimation = 5;
+            Item.value = ContentSamples.ItemsByType[ItemID.Minishark].value;
             base.SetDefaults();
         }
 

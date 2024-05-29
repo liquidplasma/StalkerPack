@@ -24,5 +24,20 @@ namespace StalkerPack.Items.Consumables
             Item.rare = ItemRarityID.Green;
             base.SetDefaults();
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(5)
+                .AddIngredient(ItemID.SwiftnessPotion)
+                .AddIngredient(ItemID.CoffeeCup)
+                .AddIngredient(ItemID.Blinkroot)
+                .AddTile(TileID.Bottles)
+                .Register();
+
+            Recipe.Create(ItemID.CoffeeCup)
+                .AddIngredient(ItemID.Teacup)
+                .AddTile(TileID.TeaKettle)
+                .Register();
+        }
     }
 }

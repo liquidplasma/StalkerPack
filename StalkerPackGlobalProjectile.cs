@@ -1,12 +1,14 @@
 ﻿using StalkerPack.Items.Weapons.Pistols;
-using Terraria;
+using StalkerPack.Items.Weapons.Shotguns;
 using Terraria.DataStructures;
 
 namespace StalkerPack
 {
     public class StalkerPackGlobalProjectile : GlobalProjectile
     {
-        public bool fromDeagle;
+        public bool
+            fromDeagle,
+            fromTOZDart;
 
         public override bool InstancePerEntity => true;
 
@@ -17,9 +19,16 @@ namespace StalkerPack
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if (source is EntitySource_ItemUse gun && gun.Item is Item item && item.type == ModContent.ItemType<Deagle>())
+            if (source is EntitySource_ItemUse deagle && deagle.Item is Item deagleItem && deagleItem.type == ModContent.ItemType<Deagle>())
             {
                 projectile.extraUpdates += 4;
+                projectile.netUpdate = true;
+                NetMessage.SendData(MessageID.SyncProjectile);
+            }
+            if (fromTOZDart && source is EntitySource_ItemUse toz34 && toz34.Item is Item toz34Item && toz34Item.type == ModContent.ItemType<TOZ34>())
+            {
+                Announce("From toz");
+                projectile.extraUpdates += 3;
                 projectile.netUpdate = true;
                 NetMessage.SendData(MessageID.SyncProjectile);
             }

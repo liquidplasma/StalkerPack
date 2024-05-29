@@ -13,6 +13,7 @@
             Item.width = 62;
             Item.height = 24;
             Item.autoReuse = true;
+            Item.value = ContentSamples.ItemsByType[ItemID.SniperRifle].value;
             base.SetDefaults();
         }
 
@@ -22,6 +23,7 @@
                 type = ProjectileID.BulletHighVelocity;
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new(-10, 0);

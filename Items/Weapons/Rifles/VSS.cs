@@ -1,5 +1,4 @@
-﻿
-namespace StalkerPack.Items.Weapons.Rifles
+﻿namespace StalkerPack.Items.Weapons.Rifles
 {
     public class VSS : BaseSemi
     {
@@ -13,8 +12,10 @@ namespace StalkerPack.Items.Weapons.Rifles
             Item.rare = ItemRarityID.Blue;
             Item.width = 56;
             Item.height = 18;
+            Item.value = ContentSamples.ItemsByType[ItemID.Musket].value;
             base.SetDefaults();
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new(-10, -1);

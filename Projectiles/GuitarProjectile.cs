@@ -3,7 +3,6 @@ using StalkerPack.Buffs;
 using StalkerPack.Helpers;
 using StalkerPack.Items.Other;
 using System.IO;
-using Terraria;
 using Terraria.DataStructures;
 
 namespace StalkerPack.Projectiles
@@ -14,9 +13,13 @@ namespace StalkerPack.Projectiles
 
         private bool
             MouseRightPressed,
-            MouseLeftPressed;
+            MouseLeftPressed,
+            PlayingMusic;
 
-        private SoundStyle GuitarMusic = new("StalkerPack/Sounds/Guitar/guitar", 11);
+        private SoundStyle GuitarMusic = new("StalkerPack/Sounds/Guitar/guitar", 11)
+        {
+            MaxInstances = 0,
+        };
 
         private ActiveSound MusicPlaying;
 
@@ -56,12 +59,13 @@ namespace StalkerPack.Projectiles
 
         public override bool ShouldUpdatePosition()
         {
-            return true;
+            return false;
         }
 
         public override void AI()
         {
             Timer++;
+            MusicPlaying = SoundEngine.FindActiveSound(GuitarMusic);
             if (Player.whoAmI == Main.myPlayer && !Player.mouseInterface && !Main.mapFullscreen)
             {
                 MouseRightPressed = Main.mouseRight;
@@ -69,46 +73,61 @@ namespace StalkerPack.Projectiles
                 Projectile.netUpdate = true;
             }
 
-            if (MouseLeftPressed && !SoundEngine.TryGetActiveSound(MusicID, out MusicPlaying))
-                MusicID = SoundEngine.PlaySound(GuitarMusic, Player.position);
+            var tracker = new ProjectileAudioTracker(Projectile);
+            if (MouseLeftPressed && MusicPlaying == null)
+                MusicID = SoundEngine.PlaySound(GuitarMusic, Player.position, MusicPlaying => Callback(tracker, MusicPlaying));
 
             if (MouseRightPressed)
                 Projectile.Kill();
 
-            if (MusicPlaying != null && MusicPlaying.IsPlaying)
+            Behavior();
+            ArmBehavior();
+            Projectile.velocity = Vector2.Zero;
+            Vector2 pos = Player.MountedCenter + new Vector2(12 * Player.direction, 0);
+            Projectile.Center = pos;
+            Projectile.spriteDirection = Player.direction;
+            Player.heldProj = Projectile.whoAmI;
+            if (MusicPlaying == null)
             {
-                Notes();
-                GuitarBuff();
-                MusicPlaying.Position = Player.position;
+                PlayingMusic = false;
+                Projectile.netUpdate = true;
+                return;
+            }
+        }
+
+        private void Behavior()
+        {
+            if (!SoundEngine.TryGetActiveSound(MusicID, out var _)) //not playing
+                return;
+            GuitarBuff();
+            Notes();
+            if (Player.whoAmI == Main.myPlayer)
+            {
+                PlayingMusic = true;
+                Projectile.netUpdate = true;
+            }
+        }
+
+        private bool Callback(ProjectileAudioTracker tracker, ActiveSound musicPlaying)
+        {
+            musicPlaying.Position = Player.position;
+            return tracker.IsActiveAndInGame();
+        }
+
+        private void ArmBehavior()
+        {
+            if (PlayingMusic)
+            {
                 if (Timer % 60 == 0)
                     ArmMovement = 0.33f;
                 else if (Timer % 30 == 0)
                     ArmMovement = 0f;
                 Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
                 Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
-
-            }
-            else
-            {
-                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
-                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
-            }
-
-            Projectile.velocity = Vector2.Zero;
-            Vector2 pos = Player.MountedCenter + new Vector2(12 * Player.direction, 0);
-            Projectile.Center = pos;
-            Projectile.spriteDirection = Player.direction;
-            Player.heldProj = Projectile.whoAmI;
-        }
-
-        private void Notes()
-        {
-            if (!Main.rand.NextBool(60) || !MusicPlaying.IsPlaying)
                 return;
-            int MusicNote = Main.rand.Next(570, 573);
-            Vector2 SpawnPosition = Projectile.Center;
-            Vector2 NoteMovement = Utils.NextVector2Circular(Main.rand, 1, 1);
-            Gore.NewGore(new EntitySource_Misc("StalkerGuitar"), SpawnPosition, NoteMovement, MusicNote, Utils.SelectRandom(Main.rand, 0.6f, 0.7f, 0.8f, 0.9f));
+            }
+            Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
+            Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
         }
 
         private void GuitarBuff()
@@ -126,6 +145,16 @@ namespace StalkerPack.Projectiles
             }
         }
 
+        private void Notes()
+        {
+            if (!Main.rand.NextBool(50))
+                return;
+            int MusicNote = Main.rand.Next(570, 573);
+            Vector2 SpawnPosition = Projectile.Center;
+            Vector2 NoteMovement = Utils.NextVector2Circular(Main.rand, 1, 1);
+            Gore.NewGore(new EntitySource_Misc("StalkerGuitar"), SpawnPosition, NoteMovement, MusicNote, Utils.SelectRandom(Main.rand, 0.6f, 0.7f, 0.8f, 0.9f));
+        }
+
         public override void OnKill(int timeLeft)
         {
             if (SoundEngine.TryGetActiveSound(MusicID, out var music))
@@ -137,12 +166,14 @@ namespace StalkerPack.Projectiles
         {
             writer.Write(MouseRightPressed);
             writer.Write(MouseLeftPressed);
+            writer.Write(PlayingMusic);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             MouseRightPressed = reader.ReadBoolean();
             MouseLeftPressed = reader.ReadBoolean();
+            PlayingMusic = reader.ReadBoolean();
         }
     }
 }

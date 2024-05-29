@@ -1,3 +1,10 @@
+TOZ34: {
+	Modes: {
+		Buckshot: Buckshot
+		Slug: Slug
+	}
+}
+
 Items: {
 	F2000: {
 		DisplayName: FT 200M
@@ -104,16 +111,116 @@ Items: {
 	}
 
 	TouristsBreakfast: {
-		DisplayName: Tourists Breakfast
+		DisplayName: Tourist's Breakfast
 		Tooltip:
 			'''
 			Canned food from an army warehouse raided by stalkers.
 			The best-before period hasn't expired yet.
 			'''
 	}
+
+	Oasis: {
+		DisplayName: Heart of the Oasis
+		Tooltip:
+			'''
+			This artifact was found at the center of the legendary Oasis. 
+			It appears that the Heart is a crystallized plant, which has acquired the healing properties of the Oasis. 
+			Increases health regeneration by 20 and max health by 50
+			'''
+	}
+
+	BerettaM9: {
+		DisplayName: Martha
+		Tooltip: ""
+	}
+
+	PMM: {
+		DisplayName: PMm
+		Tooltip: ""
+	}
+
+	TOZ34: {
+		DisplayName: TOS 34
+		Tooltip: ""
+	}
+
+	Protecta: {
+		DisplayName: Eliminator
+		Tooltip: ""
+	}
+
+	SPAS12: {
+		DisplayName: SPSA-14
+		Tooltip: ""
+	}
+
+	Winchester1300: {
+		DisplayName: Chaser 13
+		Tooltip: ""
+	}
+
+	BanditHead: {
+		DisplayName: Bandit Hood
+		Tooltip: A nu chiki-briki i v damki!
+	}
+
+	GasMask: {
+		DisplayName: Gas Mask
+		Tooltip: ""
+	}
+
+	GSH7VT: {
+		DisplayName: GSh-7VT
+		Tooltip:
+			'''
+			Anti bunker warhead
+			Deals 50% more damage against enemies behind walls
+			'''
+	}
+
+	RPG7u: {
+		DisplayName: RPG-7u
+		Tooltip: ""
+	}
+
+	BaseWarheadItem: {
+		DisplayName: Base Warhead Item
+		Tooltip: ""
+	}
+
+	OG7V: {
+		DisplayName: OG-7V
+		Tooltip: Fragmentation warhead
+	}
+
+	PG7V: {
+		DisplayName: PG-7V
+		Tooltip:
+			'''
+			Anti tank warhead
+			Ignores 25 enemy defense
+			+40% damage if the enemy has more than 40 defense
+			'''
+	}
+
+	PG7VL: {
+		DisplayName: PG-7VL
+		Tooltip:
+			'''
+			Budget version of PG-7V
+			Ignores 13 enemy defense
+			+25% damage if the enemy has more than 40 defense
+			'''
+	}
 }
 
-Projectiles.GuitarProjectile.DisplayName: Guitar Projectile
+Projectiles: {
+	GuitarProjectile.DisplayName: Guitar Projectile
+	GSH7VTProj.DisplayName: G S H7 V T Proj
+	OG7VProj.DisplayName: O G7 V Proj
+	PG7VLProj.DisplayName: P G7 V L Proj
+	PG7VProj.DisplayName: P G7 V Proj
+}
 
 Buffs: {
 	GoodTunes: {

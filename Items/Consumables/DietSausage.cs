@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.DataStructures;
+﻿using Terraria.DataStructures;
 
 namespace StalkerPack.Items.Consumables
 {
@@ -27,7 +22,5 @@ namespace StalkerPack.Items.Consumables
             Item.rare = ItemRarityID.Green;
             base.SetDefaults();
         }
-
-        
     }
 }

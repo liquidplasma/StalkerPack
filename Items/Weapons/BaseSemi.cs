@@ -32,7 +32,6 @@ namespace StalkerPack.Items.Weapons
                 PitchRange = (-0.1f, 0.1f),
                 MaxInstances = 0
             };
-            Item.value = 100 * Item.damage;
             base.SetDefaults();
         }
 
@@ -49,6 +48,10 @@ namespace StalkerPack.Items.Weapons
             {
                 velocity = velocity.RotatedByRandom(MathHelper.ToRadians(1));
             }
+            if (Item.ModItem is BerettaM9)
+            {
+                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(2));
+            }
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
 
@@ -56,8 +59,7 @@ namespace StalkerPack.Items.Weapons
         {
             if (Item.ModItem is Deagle)
             {
-                Projectile shot = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-                shot.GetGlobalProjectile<StalkerPackGlobalProjectile>().fromDeagle = true;
+                Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
                 return false;
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
