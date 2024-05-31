@@ -10,7 +10,7 @@
             Item.height = 32;
             Spread = 2;
             Item.damage = 26;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ContentSamples.ItemsByType[ItemID.Megashark].rare;
             Item.useTime = Item.useAnimation = 6;
             Item.value = ContentSamples.ItemsByType[ItemID.Megashark].value;
 

@@ -1,1 +1,9 @@
-Modify this file with a description of your mod.
+S.T.A.L.K.E.R. Content Pack is small mod containing a bunch of items related to the S.T.A.L.K.E.R. series.
+
+Source: [url=https://github.com/liquidplasma/StalkerPack] Github [/url]
+
+The mod includes:
+	- 19 ranged weapons
+	- 5 food items
+	- 2 head pieces belonging to the Stalker and Bandits faction
+	- A fully funtional guitar in which you can play campfire songs with

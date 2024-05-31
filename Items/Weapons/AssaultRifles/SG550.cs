@@ -10,7 +10,7 @@
             Item.height = 20;
             Spread = 3;
             Item.damage = 23;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ContentSamples.ItemsByType[ItemID.Megashark].rare;
             Item.useTime = Item.useAnimation = 6;
             Item.value = ContentSamples.ItemsByType[ItemID.Megashark].value;
             base.SetDefaults();
@@ -28,6 +28,6 @@
             return new(-12, 2);
         }
 
-        public override void AddRecipes() => RegisterAsMegashark();
+        public override void AddRecipes() => RegisterAsMegashark(ModContent.ItemType<MP5>());
     }
 }

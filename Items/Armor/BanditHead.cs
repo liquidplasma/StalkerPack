@@ -8,7 +8,7 @@
             Item.width = 28;
             Item.height = 24;
             Item.value = ContentSamples.ItemsByType[ItemID.IronHelmet].value;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ContentSamples.ItemsByType[ItemID.IronHelmet].rare;
             Item.defense = 2;
         }
 

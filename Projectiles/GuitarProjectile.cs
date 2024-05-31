@@ -4,6 +4,7 @@ using StalkerPack.Helpers;
 using StalkerPack.Items.Other;
 using System.IO;
 using Terraria.DataStructures;
+using Terraria.GameContent.UI.ResourceSets;
 
 namespace StalkerPack.Projectiles
 {
@@ -13,8 +14,7 @@ namespace StalkerPack.Projectiles
 
         private bool
             MouseRightPressed,
-            MouseLeftPressed,
-            PlayingMusic;
+            MouseLeftPressed;
 
         private SoundStyle GuitarMusic = new("StalkerPack/Sounds/Guitar/guitar", 11)
         {
@@ -28,6 +28,18 @@ namespace StalkerPack.Projectiles
         private ref float Timer => ref Projectile.ai[0];
         private ref float ArmMovement => ref Projectile.ai[1];
 
+        private bool PlayingMusic
+        {
+            get
+            {
+                return Projectile.ai[2] != 0;
+            }
+            set
+            {
+                Projectile.ai[2] = value.ToInt();
+            }
+        }
+
         public override string Texture => "StalkerPack/Items/Other/Guitar";
 
         public override void SetDefaults()
@@ -39,12 +51,7 @@ namespace StalkerPack.Projectiles
             base.SetDefaults();
         }
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            return false;
-        }
-
-        public override bool? CanCutTiles()
+        public override bool? CanDamage()
         {
             return false;
         }
@@ -87,47 +94,52 @@ namespace StalkerPack.Projectiles
             Projectile.Center = pos;
             Projectile.spriteDirection = Player.direction;
             Player.heldProj = Projectile.whoAmI;
-            if (MusicPlaying == null)
+            if (!SoundEngine.TryGetActiveSound(MusicID, out var _))
             {
                 PlayingMusic = false;
                 Projectile.netUpdate = true;
-                return;
             }
         }
 
         private void Behavior()
         {
-            if (!SoundEngine.TryGetActiveSound(MusicID, out var _)) //not playing
+            if (!PlayingMusic) //not playing music
                 return;
             GuitarBuff();
             Notes();
-            if (Player.whoAmI == Main.myPlayer)
-            {
-                PlayingMusic = true;
-                Projectile.netUpdate = true;
-            }
         }
 
         private bool Callback(ProjectileAudioTracker tracker, ActiveSound musicPlaying)
         {
             musicPlaying.Position = Player.position;
+            PlayingMusic = true;
             return tracker.IsActiveAndInGame();
         }
 
         private void ArmBehavior()
         {
-            if (PlayingMusic)
+            if (!PlayingMusic) //not playing music
             {
-                if (Timer % 60 == 0)
-                    ArmMovement = 0.33f;
-                else if (Timer % 30 == 0)
-                    ArmMovement = 0f;
-                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
+                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
                 Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
                 return;
             }
-            Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
-            Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
+
+            if (Timer % 60 == 0)
+                ArmMovement = 0.33f;
+            else if (Timer % 30 == 0)
+                ArmMovement = 0f;
+
+            if (PlayingMusic && Player.whoAmI == Main.myPlayer)
+            {
+                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
+                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
+            }
+            else if (PlayingMusic)
+            {
+                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
+                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
+            }
         }
 
         private void GuitarBuff()
@@ -137,7 +149,7 @@ namespace StalkerPack.Projectiles
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player otherPlayer = Main.player[i];
-                if (otherPlayer.active && !otherPlayer.dead && otherPlayer.DistanceSQ(Player.Center) < 640 * 640 && otherPlayer.whoAmI != Player.whoAmI)
+                if (otherPlayer.active && !otherPlayer.dead && Projectile.WithinRange(otherPlayer.Center, 480 * 480) && otherPlayer.whoAmI != Player.whoAmI)
                 {
                     otherPlayer.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
                     otherPlayer.AddBuff(BuffID.Sunflower, 2);

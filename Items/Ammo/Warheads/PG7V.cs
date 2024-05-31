@@ -1,6 +1,6 @@
 ﻿using StalkerPack.Projectiles.Warheads;
 
-namespace StalkerPack.Items.Ammo
+namespace StalkerPack.Items.Ammo.Warheads
 {
     public class PG7V : BaseWarheadItem
     {

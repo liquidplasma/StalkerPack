@@ -432,6 +432,13 @@ namespace StalkerPack.Helpers
         public static void FaceForward(this Projectile proj) => proj.rotation = proj.velocity.ToRotation() + MathHelper.PiOver2;
 
         /// <summary>
+        /// Rotates on velocity correctly by inputting a PiOverX value
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <param name="angle">Angle to rotate to</param>
+        public static void FaceForward(this Projectile proj, float angle) => proj.rotation = proj.velocity.ToRotation() + angle;
+
+        /// <summary>
         /// Returns true if this NPC is airborn
         /// </summary>
         /// <param name="npc"></param>

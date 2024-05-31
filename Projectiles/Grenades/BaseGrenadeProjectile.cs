@@ -1,26 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Utilities;
 using StalkerPack.Helpers;
 using Terraria.DataStructures;
 
-namespace StalkerPack.Projectiles.Warheads
+namespace StalkerPack.Projectiles.Grenades
 {
-    public abstract class BaseWarheadProjectile : ModProjectile
+    public class BaseGrenadeProjectile : ModProjectile
     {
         public Player Player => Main.player[Projectile.owner];
-        private Geometry Geometry = new();
-
-        private SoundStyle Explosion => new("StalkerPack/Sounds/Warheads/explosion");
-
-        private SoundStyle Fly => new("StalkerPack/Sounds/Warheads/rocket_fly")
-        {
-            Volume = 0.4f,
-            MaxInstances = 0,
-        };
-
-        private SlotId RocketFly;
-
-        private ActiveSound RocketLoop;
+        private SoundStyle Explosion => new("StalkerPack/Sounds/Grenades/explosion");
 
         public int Timer
         {
@@ -67,11 +54,6 @@ namespace StalkerPack.Projectiles.Warheads
             return false;
         }
 
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-        {
-            base.ModifyHitNPC(target, ref modifiers);
-        }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (State != (int)Exploded.Exploding)
@@ -98,48 +80,34 @@ namespace StalkerPack.Projectiles.Warheads
 
         public override void AI()
         {
-            RocketLoop = SoundEngine.FindActiveSound(Fly);
-            if (!SoundEngine.TryGetActiveSound(RocketFly, out var _))
-            {
-                var tracker = new ProjectileAudioTracker(Projectile);
-                RocketFly = SoundEngine.PlaySound(Fly, Projectile.position, soundInstance => SoundCallBack(tracker, soundInstance));
-            }
-
-            Projectile.FaceForward();
+            Projectile.FaceForward(MathHelper.PiOver4);
             Timer++;
             if (State != (int)Exploded.Exploding)
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    Vector2 dustVel = -Projectile.velocity.RotatedBy(Geometry.IncreaseDecrease(0.1f, 45, 0)) * 0.1f;
                     Dust dusty = Dust.NewDustDirect(Projectile.position + new Vector2(2), 1, 1, SmokeyDust);
-                    dusty.velocity = dustVel;
+                    dusty.velocity = Projectile.velocity * 0.1f;
                     dusty.noGravity = true;
                 }
             }
-
             if (Timer >= 600)
                 Projectile.velocity.Y += 0.5f;
-            Projectile.velocity.Y += 0.033f;
+            Projectile.velocity.Y += 0.066f;
             if (Projectile.velocity.Y >= 16f)
                 Projectile.velocity.Y = Projectile.oldVelocity.Y;
 
             if (Projectile.timeLeft < 6)
             {
                 State = (int)Exploded.Exploding;
-                Projectile.Resize(400, 400);
+                Projectile.Resize(300, 300);
                 Projectile.alpha = 255;
                 Projectile.velocity = Vector2.Zero;
                 Projectile.tileCollide = false;
                 Projectile.netUpdate = true;
                 SmokeGore(Projectile.GetSource_Death(), Projectile.Center, 9, 4);
             }
-        }
-
-        private bool SoundCallBack(ProjectileAudioTracker tracker, ActiveSound soundInstance)
-        {
-            soundInstance.Position = Projectile.position;
-            return tracker.IsActiveAndInGame();
+            base.AI();
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -150,7 +118,6 @@ namespace StalkerPack.Projectiles.Warheads
 
         public override void OnKill(int timeLeft)
         {
-            RocketLoop?.Stop();
             SoundEngine.PlaySound(Explosion with
             {
                 Pitch = Main.rand.NextFloat(-0.15f, 0.15f),
@@ -158,13 +125,13 @@ namespace StalkerPack.Projectiles.Warheads
                 MaxInstances = 0
             }, Projectile.Center);
 
-            if (Player.DistanceSQ(Projectile.Center) <= 200 * 200 && Collision.CanHitLine(Projectile.Center, 1, 1, Player.Center, 1, 1))
+            if (Player.DistanceSQ(Projectile.Center) <= 150 * 150 && Collision.CanHitLine(Projectile.Center, 1, 1, Player.Center, 1, 1))
             {
                 Player.HurtInfo explosionSelfDamage = new()
                 {
                     Dodgeable = true,
                     HitDirection = Projectile.Center.DirectionTo(Player.Center).X > 0f ? 1 : -1,
-                    Damage = (int)(Projectile.damage * 0.9f),
+                    Damage = Projectile.damage,
                     DamageSource = PlayerDeathReason.ByProjectile(Player.whoAmI, Projectile.identity),
                     Knockback = 6f
                 };

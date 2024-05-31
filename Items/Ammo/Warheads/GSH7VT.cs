@@ -1,6 +1,6 @@
 ﻿using StalkerPack.Projectiles.Warheads;
 
-namespace StalkerPack.Items.Ammo
+namespace StalkerPack.Items.Ammo.Warheads
 {
     /// <summary>
     /// Bunker buster
@@ -21,7 +21,7 @@ namespace StalkerPack.Items.Ammo
         {
             CreateRecipe()
                 .AddIngredient(ItemID.RocketI)
-                .AddIngredient(ItemID.Cog)
+                .AddIngredient(ItemID.HallowedBar)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

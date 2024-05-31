@@ -1,12 +1,11 @@
-﻿using Terraria.ID;
-
-namespace StalkerPack.Items.Ammo
+﻿namespace StalkerPack.Items.Ammo.Grenades
 {
-    public class BaseWarheadItem : ModItem
+    public class BaseGrenadeItem : ModItem
     {
         public override void SetDefaults()
         {
-            Item.shootSpeed = 9.5f;
+            Item.width = Item.height = 14;
+            Item.shootSpeed = 8.2f;
             Item.maxStack = Item.CommonMaxStack;
             Item.consumable = true;
             Item.ammo = Type;

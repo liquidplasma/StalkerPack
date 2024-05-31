@@ -199,7 +199,7 @@ Items: {
 			'''
 			Anti tank warhead
 			Ignores 25 enemy defense
-			+40% damage if the enemy has more than 40 defense
+			+50% damage if the enemy has more than 40 defense
 			'''
 	}
 
@@ -212,14 +212,37 @@ Items: {
 			+25% damage if the enemy has more than 40 defense
 			'''
 	}
+
+	BaseGrenadeItem: {
+		DisplayName: Base Grenade Item
+		Tooltip: ""
+	}
+
+	VOG25: {
+		DisplayName: VOG-25
+		Tooltip: ""
+	}
+
+	VOG25P: {
+		DisplayName: VOG-25P
+		Tooltip: ""
+	}
+
+	RG6: {
+		DisplayName: Bulldog-6
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
 	GuitarProjectile.DisplayName: Guitar Projectile
-	GSH7VTProj.DisplayName: G S H7 V T Proj
-	OG7VProj.DisplayName: O G7 V Proj
-	PG7VLProj.DisplayName: P G7 V L Proj
-	PG7VProj.DisplayName: P G7 V Proj
+	GSH7VTProj.DisplayName: GSH7VT Proj
+	OG7VProj.DisplayName: OG7V Proj
+	PG7VLProj.DisplayName: PG7V L Proj
+	PG7VProj.DisplayName: PG7V Proj
+	BaseGrenadeProjectile.DisplayName: Base Grenade Projectile
+	VOG25PProj.DisplayName: VOG25P Proj
+	VOG25Proj.DisplayName: VOG25 Proj
 }
 
 Buffs: {

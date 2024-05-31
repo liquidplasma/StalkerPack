@@ -39,10 +39,10 @@
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
 
-        public void RegisterAsMegashark()
+        public void RegisterAsMegashark(int mainIngredient = ItemID.Minishark)
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Minishark)
+                .AddIngredient(mainIngredient)
                 .AddIngredient(ItemID.IllegalGunParts)
                 .AddIngredient(ItemID.SharkFin, 5)
                 .AddIngredient(ItemID.SoulofMight, 20)

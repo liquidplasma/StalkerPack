@@ -1,4 +1,5 @@
-﻿using StalkerPack.Items.Ammo;
+﻿using StalkerPack.Items.Ammo.Grenades;
+using StalkerPack.Items.Ammo.Warheads;
 using StalkerPack.Items.Consumables;
 using StalkerPack.Items.Weapons.AssaultRifles;
 using StalkerPack.Items.Weapons.Pistols;
@@ -57,6 +58,8 @@ namespace StalkerPack
                     shop.Add(ModContent.ItemType<OG7V>(), Condition.DownedMartians);
                     shop.Add(ModContent.ItemType<PG7V>());
                     shop.Add(ModContent.ItemType<PG7VL>());
+                    shop.Add(ModContent.ItemType<VOG25>(), Condition.DownedPlantera);
+                    shop.Add(ModContent.ItemType<VOG25P>(), Condition.DownedPlantera);
                     break;
             }
         }

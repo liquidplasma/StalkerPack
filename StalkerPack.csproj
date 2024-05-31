@@ -12,10 +12,13 @@
 	  <None Remove="Buffs\Energized.png" />
 	  <None Remove="Buffs\GoodTunes.png" />
 	  <None Remove="Items\Ammo\BaseWarheadItem.png" />
+	  <None Remove="Items\Ammo\Grenades\VOG25.png" />
 	  <None Remove="Items\Ammo\GSH7VT.png" />
 	  <None Remove="Items\Ammo\OG7V.png" />
 	  <None Remove="Items\Ammo\PG7V.png" />
 	  <None Remove="Items\Ammo\PG7VL.png" />
+	  <None Remove="Items\Ammo\Warheads\Projectile_133.png" />
+	  <None Remove="Items\Ammo\Warheads\Projectile_136.png" />
 	  <None Remove="Items\Armor\BanditHead.png" />
 	  <None Remove="Items\Armor\BanditHead_Head.png" />
 	  <None Remove="Items\Armor\GasMask.png" />
@@ -33,6 +36,7 @@
 	  <None Remove="Items\Weapons\AssaultRifles\L85.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\MP5.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\Sg550.png" />
+	  <None Remove="Items\Weapons\Explosive\RG6.png" />
 	  <None Remove="Items\Weapons\Explosive\RPG7u.png" />
 	  <None Remove="Items\Weapons\Pistols\APS.png" />
 	  <None Remove="Items\Weapons\Pistols\BerettaM9.png" />
@@ -44,6 +48,9 @@
 	  <None Remove="Items\Weapons\Shotguns\Protecta.png" />
 	  <None Remove="Items\Weapons\Shotguns\SPAS12.png" />
 	  <None Remove="Items\Weapons\Shotguns\Winchester1300.png" />
+	  <None Remove="Projectiles\Grenades\BaseGrenadeProjectile.png" />
+	  <None Remove="Projectiles\Grenades\VOG25PProj.png" />
+	  <None Remove="Projectiles\Grenades\VOG25Proj.png" />
 	  <None Remove="Projectiles\Warheads\GSH7VTProj.png" />
 	  <None Remove="Projectiles\Warheads\OG7VProj.png" />
 	  <None Remove="Projectiles\Warheads\PG7VLProj.png" />

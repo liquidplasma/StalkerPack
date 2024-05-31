@@ -1,20 +1,20 @@
-﻿using StalkerPack.Items.Ammo.Warheads;
+﻿using StalkerPack.Items.Ammo.Grenades;
+using StalkerPack.Items.Ammo.Warheads;
 
 namespace StalkerPack.Items.Weapons.Explosive
 {
-    public class RPG7u : ModItem
+    public class RG6 : ModItem
     {
-        private SoundStyle ShootNoise => new("StalkerPack/Sounds/Weapons/" + nameof(RPG7u) + "/shot");
+        private SoundStyle ShootNoise => new("StalkerPack/Sounds/Weapons/" + nameof(RG6) + "/shot");
 
         public override void SetDefaults()
         {
-            Item.damage = 67;
-            Item.crit = 11;
-            Item.useTime = Item.useAnimation = 60;
-            Item.rare = ItemRarityID.Yellow;
-            Item.width = 52;
+            Item.damage = 39;
+            Item.useTime = Item.useAnimation = 20;
+            Item.rare = ContentSamples.ItemsByType[ItemID.GrenadeLauncher].rare;
+            Item.width = 56;
             Item.height = 22;
-            Item.value = ContentSamples.ItemsByType[ItemID.RocketLauncher].value;
+            Item.value = ContentSamples.ItemsByType[ItemID.GrenadeLauncher].value;
             Item.useAmmo = ModContent.ItemType<BaseWarheadItem>();
             Item.shoot = ProjectileID.PurificationPowder;
             Item.shootSpeed = 16f;
@@ -30,10 +30,15 @@ namespace StalkerPack.Items.Weapons.Explosive
                 MaxInstances = 0
             };
         }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
+            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+        }
 
         public override bool? CanChooseAmmo(Item ammo, Player player)
         {
-            if (ammo.ModItem is BaseWarheadItem)
+            if (ammo.ModItem is BaseGrenadeItem)
             {
                 Item.shoot = ammo.shoot;
                 return true;

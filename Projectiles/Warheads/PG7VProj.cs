@@ -11,7 +11,7 @@
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (target.defense >= 40)
-                modifiers.SourceDamage += 0.4f;
+                modifiers.SourceDamage += 0.5f;
             base.ModifyHitNPC(target, ref modifiers);
         }
     }
