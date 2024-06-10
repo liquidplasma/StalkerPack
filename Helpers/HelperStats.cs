@@ -11,6 +11,20 @@ namespace StalkerPack.Helpers
         private static int
             KnifeDustEffect;
 
+        public static Vector2 FindNearestChest()
+        {
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                for (int k = 0; k < Main.maxTilesY; k++)
+                {
+                    Tile chest = Framing.GetTileSafely(i, k);
+                    if (chest != null && chest.TileType == 21)
+                        return new Vector2(i * 16, k * 16);
+                }
+            }
+            return Vector2.Zero;
+        }
+
         public static int RandomCyanDust => Utils.SelectRandom(Main.rand, 226, 300);
 
         /// <summary>
