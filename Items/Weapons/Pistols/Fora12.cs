@@ -2,7 +2,7 @@
 {
     public class Fora12 : BaseSemi
     {
-        public override SoundStyle ShootNoise { get => new("StalkerPack/Sounds/Weapons/" + nameof(Fora12) + "/shoot"); }
+        public override SoundStyle ShootNoise { get => new("StalkerPack/Sounds/Weapons/" + nameof(Fora12) + "/shot"); }
 
         public override void SetDefaults()
         {

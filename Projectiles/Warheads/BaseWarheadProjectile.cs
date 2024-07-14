@@ -44,6 +44,12 @@ namespace StalkerPack.Projectiles.Warheads
             Exploding
         }
 
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.IsARocketThatDealsDoubleDamageToPrimaryEnemy[Type] = true;
+            base.SetStaticDefaults();
+        }
+
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;
@@ -59,7 +65,7 @@ namespace StalkerPack.Projectiles.Warheads
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.timeLeft <= 6)
+            if (Projectile.timeLeft <= 3)
                 return false;
             Texture2D texture = Projectile.MyTexture();
             Rectangle rect = texture.Bounds;
@@ -75,7 +81,7 @@ namespace StalkerPack.Projectiles.Warheads
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (State != (int)Exploded.Exploding)
-                Projectile.timeLeft = 6;
+                Projectile.timeLeft = 3;
             else
             {
                 if (!target.active)
@@ -124,7 +130,7 @@ namespace StalkerPack.Projectiles.Warheads
             if (Projectile.velocity.Y >= 16f)
                 Projectile.velocity.Y = Projectile.oldVelocity.Y;
 
-            if (Projectile.timeLeft < 6)
+            if (Projectile.timeLeft < 3)
             {
                 State = (int)Exploded.Exploding;
                 Projectile.Resize(400, 400);
@@ -144,7 +150,7 @@ namespace StalkerPack.Projectiles.Warheads
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.timeLeft = 6;
+            Projectile.timeLeft = 3;
             return false;
         }
 
