@@ -10,3 +10,6 @@ The mod includes:
 	- 2 head pieces belonging to the Stalker and Bandits faction
 	- A fully funtional guitar in which you can play campfire songs with
 
+Changelog:
+	- Fix for Fora-12 shot noise
+	- Warheads now deal double damage on impact

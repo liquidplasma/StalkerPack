@@ -10,11 +10,15 @@ namespace StalkerPack.Projectiles.Warheads
         public Player Player => Main.player[Projectile.owner];
         private Geometry Geometry = new();
 
-        private SoundStyle Explosion => new("StalkerPack/Sounds/Warheads/explosion");
+        private SoundStyle Explosion => new("StalkerPack/Sounds/Warheads/explosion")
+        {
+            Volume = 0.15f,
+            MaxInstances = 0
+        };
 
         private SoundStyle Fly => new("StalkerPack/Sounds/Warheads/rocket_fly")
         {
-            Volume = 0.4f,
+            Volume = 0.2f,
             MaxInstances = 0,
         };
 
@@ -118,7 +122,8 @@ namespace StalkerPack.Projectiles.Warheads
                 for (int i = 0; i < 6; i++)
                 {
                     Vector2 dustVel = -Projectile.velocity.RotatedBy(Geometry.IncreaseDecrease(0.1f, 45, 0)) * 0.1f;
-                    Dust dusty = Dust.NewDustDirect(Projectile.position + new Vector2(2), 1, 1, SmokeyDust);
+                    dustVel = dustVel.RotatedByRandom(MathHelper.ToRadians(2));
+                    Dust dusty = Dust.NewDustDirect(Projectile.Center, 1, 1, SmokeyDust);
                     dusty.velocity = dustVel;
                     dusty.noGravity = true;
                 }
@@ -160,7 +165,7 @@ namespace StalkerPack.Projectiles.Warheads
             SoundEngine.PlaySound(Explosion with
             {
                 Pitch = Main.rand.NextFloat(-0.15f, 0.15f),
-                Volume = 0.5f,
+                Volume = 0.15f,
                 MaxInstances = 0
             }, Projectile.Center);
 
