@@ -48,7 +48,7 @@ namespace StalkerPack.Items.Weapons
             {
                 velocity = velocity.RotatedByRandom(MathHelper.ToRadians(1));
             }
-            if (Item.ModItem is BerettaM9)
+            if (Item.ModItem is BerettaM9 or Fora12)
             {
                 velocity = velocity.RotatedByRandom(MathHelper.ToRadians(2));
             }
