@@ -1,7 +1,9 @@
 ﻿using StalkerPack.Items.Ammo.Grenades;
 using StalkerPack.Items.Ammo.Warheads;
 using StalkerPack.Items.Consumables;
+using StalkerPack.Items.Other;
 using StalkerPack.Items.Weapons.AssaultRifles;
+using StalkerPack.Items.Weapons.Explosive;
 using StalkerPack.Items.Weapons.Pistols;
 using StalkerPack.Items.Weapons.Rifles;
 using StalkerPack.Items.Weapons.Shotguns;
@@ -14,10 +16,7 @@ namespace StalkerPack
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             if (NPCID.Search.GetName(npc.type).Contains("zombie", System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DietSausage>(), 10));
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Bread>(), 10));
-            }
+                npcLoot.Add(ItemDropRule.OneFromOptions(10, ModContent.ItemType<Bread>(), ModContent.ItemType<DietSausage>()));
 
             switch (npc.type)
             {
@@ -33,6 +32,14 @@ namespace StalkerPack
                     LeadingConditionRule deagleRule = new(new Conditions.NotExpert());
                     deagleRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Deagle>(), 7));
                     npcLoot.Add(deagleRule);
+                    LeadingConditionRule grenadeRule = new(new Conditions.FirstTimeKillingPlantera());
+                    grenadeRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RG6>(), 1));
+                    grenadeRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<VOG25>(), 1, 21, 50));
+                    npcLoot.Add(grenadeRule);
+                    break;
+
+                case NPCID.EyeofCthulhu:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SvarogItem>(), 2));
                     break;
             }
         }

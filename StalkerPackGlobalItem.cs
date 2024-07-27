@@ -1,4 +1,5 @@
 ﻿using StalkerPack.Helpers;
+using StalkerPack.Items.Other;
 using StalkerPack.Items.Weapons.Pistols;
 using StalkerPack.Items.Weapons.Rifles;
 using Terraria.DataStructures;
@@ -28,8 +29,16 @@ namespace StalkerPack
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
-            if (item.type == ItemID.PlanteraBossBag)
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Deagle>(), 7));
+            switch (item.type)
+            {
+                case ItemID.PlanteraBossBag:
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Deagle>(), 7));
+                    break;
+
+                case ItemID.EyeOfCthulhuBossBag:
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SvarogItem>()));
+                    break;
+            }
         }
     }
 }

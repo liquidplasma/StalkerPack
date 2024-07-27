@@ -232,6 +232,23 @@ Items: {
 		DisplayName: Bulldog-6
 		Tooltip: ""
 	}
+
+	SvarogItem: {
+		DisplayName: Svarog detector
+		Tooltip:
+			'''
+			Finds [c/946B50:chests], [c/d33030:life crystals] and [c/69c83c:life fruits] nearby.
+			A prototype of an expanded functionality chest frequency scanner. 
+			This device comes with a program used to identify areas of chest locations stored in its database, 
+			while retaining the ability to locate heart crystals. The position of heart crystals and chests is displayed on a special screen. 
+			The heart crystal search mode, has been modified to detect heart crystal formations currently unknown to science.
+			'''
+	}
+
+	GaussRifle: {
+		DisplayName: Gauss Rifle
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -243,6 +260,11 @@ Projectiles: {
 	BaseGrenadeProjectile.DisplayName: Base Grenade Projectile
 	VOG25PProj.DisplayName: VOG25P Proj
 	VOG25Proj.DisplayName: VOG25 Proj
+	ChestFinder.DisplayName: Chest Finder
+	HeartFinder.DisplayName: Heart Finder
+	LifeFruitFinder.DisplayName: Life Fruit Finder
+	GaussProj.DisplayName: Gauss Proj
+	GaussGun.DisplayName: Gauss Gun
 }
 
 Buffs: {

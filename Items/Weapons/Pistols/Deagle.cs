@@ -23,7 +23,6 @@ namespace StalkerPack.Items.Weapons.Pistols
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-           
             base.UseStyle(player, heldItemFrame);
         }
 

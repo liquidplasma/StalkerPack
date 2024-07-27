@@ -1,5 +1,4 @@
-﻿
-namespace StalkerPack.Items.Weapons.Pistols
+﻿namespace StalkerPack.Items.Weapons.Pistols
 {
     public class Fora12 : BaseSemi
     {
@@ -15,6 +14,7 @@ namespace StalkerPack.Items.Weapons.Pistols
             Item.value = ContentSamples.ItemsByType[ItemID.TheUndertaker].value;
             base.SetDefaults();
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new(-4, 0);

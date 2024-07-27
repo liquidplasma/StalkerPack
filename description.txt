@@ -5,11 +5,11 @@ Thanks to [url=https://steamcommunity.com/profiles/76561198801238096/] -Faroz- [
 
 
 The mod includes:
-	- 19 ranged weapons
+	- 20 ranged weapons
 	- 5 food items
 	- 2 head pieces belonging to the Stalker and Bandits faction
 	- A fully funtional guitar in which you can play campfire songs with
+	- A Svarog detector which can help you find useful early game stuff
 
 Changelog:
-	- Fix for Fora-12 shot noise
-	- Warheads now deal double damage on impact
+	- Svarog and Gauss added	

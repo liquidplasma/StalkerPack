@@ -4,7 +4,6 @@ using StalkerPack.Helpers;
 using StalkerPack.Items.Other;
 using System.IO;
 using Terraria.DataStructures;
-using Terraria.GameContent.UI.ResourceSets;
 
 namespace StalkerPack.Projectiles
 {

@@ -1,6 +1,4 @@
-﻿using Terraria.ID;
-
-namespace StalkerPack.Items.Ammo.Warheads
+﻿namespace StalkerPack.Items.Ammo.Warheads
 {
     public class BaseWarheadItem : ModItem
     {

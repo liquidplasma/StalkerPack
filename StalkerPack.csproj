@@ -30,6 +30,7 @@
 	  <None Remove="Items\Consumables\Vodka.png" />
 	  <None Remove="Items\Other\Guitar.png" />
 	  <None Remove="Items\Other\Oasis.png" />
+	  <None Remove="Items\Other\SvarogItem.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\Ak74.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\AKS74U.png" />
 	  <None Remove="Items\Weapons\AssaultRifles\F2000.png" />
@@ -38,6 +39,7 @@
 	  <None Remove="Items\Weapons\AssaultRifles\Sg550.png" />
 	  <None Remove="Items\Weapons\Explosive\RG6.png" />
 	  <None Remove="Items\Weapons\Explosive\RPG7u.png" />
+	  <None Remove="Items\Weapons\GaussRifle.png" />
 	  <None Remove="Items\Weapons\Pistols\APS.png" />
 	  <None Remove="Items\Weapons\Pistols\BerettaM9.png" />
 	  <None Remove="Items\Weapons\Pistols\Deagle.png" />

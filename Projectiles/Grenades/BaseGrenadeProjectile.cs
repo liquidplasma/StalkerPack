@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using StalkerPack.Helpers;
+using StalkerPack.Items.Weapons.Explosive;
 using Terraria.DataStructures;
 
 namespace StalkerPack.Projectiles.Grenades
@@ -82,7 +83,7 @@ namespace StalkerPack.Projectiles.Grenades
         {
             Projectile.FaceForward(MathHelper.PiOver4);
             Timer++;
-            if (State != (int)Exploded.Exploding)
+            if (Timer >= 3 && State != (int)Exploded.Exploding)
             {
                 for (int i = 0; i < 6; i++)
                 {
@@ -91,21 +92,21 @@ namespace StalkerPack.Projectiles.Grenades
                     dusty.noGravity = true;
                 }
             }
-            if (Timer >= 600)
+            if (Timer >= 300)
                 Projectile.velocity.Y += 0.5f;
-            Projectile.velocity.Y += 0.066f;
+            Projectile.velocity.Y += 0.099f;
             if (Projectile.velocity.Y >= 16f)
                 Projectile.velocity.Y = Projectile.oldVelocity.Y;
 
             if (Projectile.timeLeft < 6)
             {
                 State = (int)Exploded.Exploding;
-                Projectile.Resize(300, 300);
+                Projectile.Resize(160, 160);
                 Projectile.alpha = 255;
                 Projectile.velocity = Vector2.Zero;
                 Projectile.tileCollide = false;
                 Projectile.netUpdate = true;
-                SmokeGore(Projectile.GetSource_Death(), Projectile.Center, 9, 4);
+                SmokeGore(Projectile.GetSource_Death(), Projectile.Center, 2, 1.25f);
             }
             base.AI();
         }
@@ -120,7 +121,7 @@ namespace StalkerPack.Projectiles.Grenades
         {
             SoundEngine.PlaySound(Explosion with
             {
-                Pitch = Main.rand.NextFloat(-0.15f, 0.15f),
+                Pitch = Main.rand.NextFloat(-0.3f, 0.3f),
                 Volume = 0.5f,
                 MaxInstances = 0
             }, Projectile.Center);
@@ -132,7 +133,7 @@ namespace StalkerPack.Projectiles.Grenades
                     Dodgeable = true,
                     HitDirection = Projectile.Center.DirectionTo(Player.Center).X > 0f ? 1 : -1,
                     Damage = Projectile.damage,
-                    DamageSource = PlayerDeathReason.ByProjectile(Player.whoAmI, Projectile.identity),
+                    DamageSource = PlayerDeathReason.ByPlayerItem(Player.whoAmI, ContentSamples.ItemsByType[ModContent.ItemType<RG6>()]),
                     Knockback = 6f
                 };
                 Player.Hurt(explosionSelfDamage);

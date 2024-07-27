@@ -1,5 +1,4 @@
 ﻿using StalkerPack.Items.Ammo.Grenades;
-using StalkerPack.Items.Ammo.Warheads;
 
 namespace StalkerPack.Items.Weapons.Explosive
 {
@@ -15,7 +14,7 @@ namespace StalkerPack.Items.Weapons.Explosive
             Item.width = 56;
             Item.height = 22;
             Item.value = ContentSamples.ItemsByType[ItemID.GrenadeLauncher].value;
-            Item.useAmmo = ModContent.ItemType<BaseWarheadItem>();
+            Item.useAmmo = ModContent.ItemType<BaseGrenadeItem>();
             Item.shoot = ProjectileID.PurificationPowder;
             Item.shootSpeed = 16f;
             Item.knockBack = 4f;
@@ -30,6 +29,7 @@ namespace StalkerPack.Items.Weapons.Explosive
                 MaxInstances = 0
             };
         }
+
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
@@ -48,7 +48,7 @@ namespace StalkerPack.Items.Weapons.Explosive
 
         public override Vector2? HoldoutOffset()
         {
-            return new(-22, -1);
+            return new(-8, -1);
         }
     }
 }

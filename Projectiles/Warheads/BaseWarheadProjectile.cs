@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
 using StalkerPack.Helpers;
+using StalkerPack.Items.Weapons.Explosive;
 using Terraria.DataStructures;
 
 namespace StalkerPack.Projectiles.Warheads
@@ -117,7 +118,7 @@ namespace StalkerPack.Projectiles.Warheads
 
             Projectile.FaceForward();
             Timer++;
-            if (State != (int)Exploded.Exploding)
+            if (Timer >= 3 && State != (int)Exploded.Exploding)
             {
                 for (int i = 0; i < 6; i++)
                 {
@@ -176,7 +177,7 @@ namespace StalkerPack.Projectiles.Warheads
                     Dodgeable = true,
                     HitDirection = Projectile.Center.DirectionTo(Player.Center).X > 0f ? 1 : -1,
                     Damage = (int)(Projectile.damage * 0.9f),
-                    DamageSource = PlayerDeathReason.ByProjectile(Player.whoAmI, Projectile.identity),
+                    DamageSource = PlayerDeathReason.ByPlayerItem(Player.whoAmI, ContentSamples.ItemsByType[ModContent.ItemType<RPG7u>()]),
                     Knockback = 6f
                 };
                 Player.Hurt(explosionSelfDamage);

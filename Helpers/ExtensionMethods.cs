@@ -100,11 +100,11 @@ namespace StalkerPack.Helpers
         /// </summary>
         /// <param name="Player"></param>
         /// <param name="Projectile"></param>
-        public static int HoldOutArm(this Player Player, Projectile Projectile, Vector2 angleVector)
+        public static void HoldOutArm(this Player Player, Projectile Projectile, Vector2 angleVector)
         {
             //Vanilla code below, ech
             float angleFloat = MathF.Sin(Player.Center.AngleTo(angleVector));
-            bool addAngle = HelperStats.TestRange(angleFloat, 0.12f, 1f);
+            bool addAngle = TestRange(angleFloat, 0.12f, 1f);
             angleFloat /= 2f;
             float num7 = -MathF.PI / 10f;
             if (Player.direction == -1)
@@ -122,14 +122,12 @@ namespace StalkerPack.Helpers
                 if (addAngle)
                     rotation -= angleFloat;
                 Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
-                return 1;
             }
             else
             {
                 if (addAngle)
                     rotation += angleFloat;
                 Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
-                return -1;
             }
         }
 
