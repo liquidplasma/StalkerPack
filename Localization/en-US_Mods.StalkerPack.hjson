@@ -246,8 +246,14 @@ Items: {
 	}
 
 	GaussRifle: {
-		DisplayName: Gauss Rifle
-		Tooltip: ""
+		DisplayName: Item 62
+		Tooltip:
+			'''
+			This gun is a Gauss rifle, or Item 62 as it used to be called officially. 
+			Whew... Back then I used to do contract work for the Jupiter plant. I designed weapons, if memory serves,
+			"based on the principle of projectile acceleration via an electromagnetic field." See those reels? I made those...
+			Too bad they shut down the project in 2004. We never did find a compact enough energy source.
+			'''
 	}
 }
 

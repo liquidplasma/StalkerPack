@@ -79,28 +79,22 @@ namespace StalkerPack
             float top = center.Y - halfHeight;
             float bottom = center.Y + halfHeight;
 
-            // Convert boundaries from world coordinates to tile coordinates
-            int leftTile = (int)(left / 16);
-            int rightTile = (int)(right / 16);
-            int topTile = (int)(top / 16);
-            int bottomTile = (int)(bottom / 16);
-
-            // Clamp the tile coordinates to the bounds of the tile map
-            leftTile = Math.Max(0, leftTile);
-            rightTile = Math.Min(Main.maxTilesX - 1, rightTile);
-            topTile = Math.Max(0, topTile);
-            bottomTile = Math.Min(Main.maxTilesY - 1, bottomTile);
+            // Convert boundaries from world coordinates to tile coordinates and clamp them to the tile map bounds
+            int leftTile = Math.Max(0, (int)(left / 16));
+            int rightTile = Math.Min(Main.maxTilesX - 1, (int)(right / 16));
+            int topTile = Math.Max(0, (int)(top / 16));
+            int bottomTile = Math.Min(Main.maxTilesY - 1, (int)(bottom / 16));
 
             Vector2 closestTilePos = Vector2.Zero;
 
-            for (int i = leftTile; i <= rightTile; i++)
+            for (int x = leftTile; x <= rightTile; x++)
             {
-                for (int j = topTile; j <= bottomTile; j++)
+                for (int y = topTile; y <= bottomTile; y++)
                 {
-                    Tile tile = Framing.GetTileSafely(i, j);
+                    Tile tile = Framing.GetTileSafely(x, y);
                     if (tile != null && tileTypes.Contains(tile.TileType))
                     {
-                        Vector2 tilePos = new(i * 16, j * 16);
+                        Vector2 tilePos = new Vector2(x * 16, y * 16);
                         float distance = Vector2.Distance(center, tilePos);
                         if (distance < closestDistance)
                         {

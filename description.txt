@@ -9,7 +9,7 @@ The mod includes:
 	- 5 food items
 	- 2 head pieces belonging to the Stalker and Bandits faction
 	- A fully funtional guitar in which you can play campfire songs with
-	- A Svarog detector which can help you find useful early game stuff
+	- A Svarog detector which can help you find useful early game stuff, drops from Eye of Cthulu
 
 Changelog:
-	- Svarog and Gauss added	
+	- Svarog and Gauss added

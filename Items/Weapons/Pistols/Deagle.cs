@@ -4,8 +4,6 @@ namespace StalkerPack.Items.Weapons.Pistols
 {
     public class Deagle : BaseSemi
     {
-        private Geometry Geometry = new();
-
         public override SoundStyle ShootNoise { get => new("StalkerPack/Sounds/Weapons/" + nameof(Deagle) + "/shot"); }
 
         public override void SetDefaults()

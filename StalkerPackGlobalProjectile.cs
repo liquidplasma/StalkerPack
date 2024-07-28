@@ -6,10 +6,6 @@ namespace StalkerPack
 {
     public class StalkerPackGlobalProjectile : GlobalProjectile
     {
-        public bool
-            fromDeagle,
-            fromTOZDart;
-
         public override bool InstancePerEntity => true;
 
         public override void SetDefaults(Projectile entity)
@@ -25,9 +21,8 @@ namespace StalkerPack
                 projectile.netUpdate = true;
                 NetMessage.SendData(MessageID.SyncProjectile);
             }
-            if (fromTOZDart && source is EntitySource_ItemUse toz34 && toz34.Item is Item toz34Item && toz34Item.type == ModContent.ItemType<TOZ34>())
+            if (source is EntitySource_ItemUse toz34 && toz34.Item is Item toz34Item && toz34Item.type == ModContent.ItemType<TOZ34>())
             {
-                Announce("From toz");
                 projectile.extraUpdates += 3;
                 projectile.netUpdate = true;
                 NetMessage.SendData(MessageID.SyncProjectile);
