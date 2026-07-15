@@ -9,7 +9,7 @@ namespace StalkerPack.Items.Weapons
         {
             Item.damage = 667;
             Item.crit = 36;
-            Item.useTime = Item.useAnimation = 75;
+            Item.useTime = Item.useAnimation = 125;
             Item.rare = ItemRarityID.Yellow;
             Item.width = Item.height = 48;
             Item.autoReuse = false;

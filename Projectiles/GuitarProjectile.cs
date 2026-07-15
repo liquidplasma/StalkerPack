@@ -1,8 +1,6 @@
 ﻿using ReLogic.Utilities;
 using StalkerPack.Buffs;
-using StalkerPack.Helpers;
 using StalkerPack.Items.Other;
-using System.IO;
 using Terraria.DataStructures;
 
 namespace StalkerPack.Projectiles
@@ -11,113 +9,93 @@ namespace StalkerPack.Projectiles
     {
         private Player Player => Main.player[Projectile.owner];
 
-        private bool
-            MouseRightPressed,
-            MouseLeftPressed;
-
         private SoundStyle GuitarMusic = new("StalkerPack/Sounds/Guitar/guitar", 11)
         {
-            MaxInstances = 0,
+            MaxInstances = 0
         };
 
-        private ActiveSound MusicPlaying;
-
         private SlotId MusicID;
+        private bool PlayingMusic;
 
         private ref float Timer => ref Projectile.ai[0];
         private ref float ArmMovement => ref Projectile.ai[1];
-
-        private bool PlayingMusic
-        {
-            get
-            {
-                return Projectile.ai[2] != 0;
-            }
-            set
-            {
-                Projectile.ai[2] = value.ToInt();
-            }
-        }
 
         public override string Texture => "StalkerPack/Items/Other/Guitar";
 
         public override void SetDefaults()
         {
-            Projectile.height = Projectile.width = 32;
+            Projectile.width = Projectile.height = 32;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 120;
-            base.SetDefaults();
         }
 
-        public override bool? CanDamage()
-        {
-            return false;
-        }
+        public override bool? CanDamage() => false;
+
+        public override bool ShouldUpdatePosition() => false;
 
         public override bool PreAI()
         {
             Projectile.KeepAliveIfOwnerIsAlive(Player);
+
             if (Player.HeldItem.type != ModContent.ItemType<Guitar>())
                 Projectile.Kill();
-            return base.PreAI();
-        }
 
-        public override bool ShouldUpdatePosition()
-        {
-            return false;
+            return true;
         }
 
         public override void AI()
         {
             Timer++;
-            MusicPlaying = SoundEngine.FindActiveSound(GuitarMusic);
+
+            // ===== INPUT (ТОЛЬКО ВЛАДЕЛЕЦ) =====
             if (Player.whoAmI == Main.myPlayer && !Player.mouseInterface && !Main.mapFullscreen)
             {
-                MouseRightPressed = Main.mouseRight;
-                MouseLeftPressed = Main.mouseLeft;
-                Projectile.netUpdate = true;
+                // ЛКМ — старт музыки
+                if (Main.mouseLeft && !PlayingMusic)
+                {
+                    MusicID = SoundEngine.PlaySound(
+                        GuitarMusic,
+                        Player.Center,
+                        sound =>
+                        {
+                            sound.Position = Player.Center;
+                            return Projectile.active;
+                        }
+                    );
+
+                    PlayingMusic = true;
+                    Projectile.netUpdate = true;
+                }
+
+                // ПКМ — убрать гитару
+                if (Main.mouseRight)
+                    Projectile.Kill();
             }
 
-            var tracker = new ProjectileAudioTracker(Projectile);
-            if (MouseLeftPressed && MusicPlaying == null)
-                MusicID = SoundEngine.PlaySound(GuitarMusic, Player.position, MusicPlaying => Callback(tracker, MusicPlaying));
+            // ===== ОБНОВЛЕНИЕ ПОЗИЦИИ ЗВУКА =====
+            if (SoundEngine.TryGetActiveSound(MusicID, out var sound))
+                sound.Position = Player.Center;
 
-            if (MouseRightPressed)
-                Projectile.Kill();
+            // ===== ПОВЕДЕНИЕ =====
+            if (PlayingMusic)
+            {
+                GuitarBuff();
+                Notes();
+            }
 
-            Behavior();
             ArmBehavior();
+
+            // ===== ПРИВЯЗКА К ИГРОКУ =====
             Projectile.velocity = Vector2.Zero;
-            Vector2 pos = Player.MountedCenter + new Vector2(12 * Player.direction, 0);
-            Projectile.Center = pos;
+            Projectile.Center = Player.MountedCenter + new Vector2(12 * Player.direction, 0);
             Projectile.spriteDirection = Player.direction;
             Player.heldProj = Projectile.whoAmI;
-            if (!SoundEngine.TryGetActiveSound(MusicID, out var _))
-            {
-                PlayingMusic = false;
-                Projectile.netUpdate = true;
-            }
-        }
-
-        private void Behavior()
-        {
-            if (!PlayingMusic) //not playing music
-                return;
-            GuitarBuff();
-            Notes();
-        }
-
-        private bool Callback(ProjectileAudioTracker tracker, ActiveSound musicPlaying)
-        {
-            musicPlaying.Position = Player.position;
-            PlayingMusic = true;
-            return tracker.IsActiveAndInGame();
         }
 
         private void ArmBehavior()
         {
-            if (!PlayingMusic) //not playing music
+            if (!PlayingMusic)
             {
                 Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
                 Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
@@ -129,29 +107,23 @@ namespace StalkerPack.Projectiles
             else if (Timer % 30 == 0)
                 ArmMovement = 0f;
 
-            if (PlayingMusic && Player.whoAmI == Main.myPlayer)
-            {
-                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
-                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
-            }
-            else if (PlayingMusic)
-            {
-                Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
-                Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
-            }
+            Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (MathHelper.PiOver4 + ArmMovement) * -Player.direction);
+            Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, MathHelper.PiOver4 * -Player.direction);
         }
 
         private void GuitarBuff()
         {
             Player.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
             Player.AddBuff(BuffID.Sunflower, 2);
+
             for (int i = 0; i < Main.maxPlayers; i++)
             {
-                Player otherPlayer = Main.player[i];
-                if (otherPlayer.active && !otherPlayer.dead && Projectile.WithinRange(otherPlayer.Center, 480 * 480) && otherPlayer.whoAmI != Player.whoAmI)
+                Player other = Main.player[i];
+                if (other.active && !other.dead && other.whoAmI != Player.whoAmI &&
+                    Projectile.WithinRange(other.Center, 480 * 480))
                 {
-                    otherPlayer.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
-                    otherPlayer.AddBuff(BuffID.Sunflower, 2);
+                    other.AddBuff(ModContent.BuffType<GoodTunes>(), 30);
+                    other.AddBuff(BuffID.Sunflower, 2);
                 }
             }
         }
@@ -160,31 +132,21 @@ namespace StalkerPack.Projectiles
         {
             if (!Main.rand.NextBool(50))
                 return;
-            int MusicNote = Main.rand.Next(570, 573);
-            Vector2 SpawnPosition = Projectile.Center;
-            Vector2 NoteMovement = Utils.NextVector2Circular(Main.rand, 1, 1);
-            Gore.NewGore(new EntitySource_Misc("StalkerGuitar"), SpawnPosition, NoteMovement, MusicNote, Utils.SelectRandom(Main.rand, 0.6f, 0.7f, 0.8f, 0.9f));
+
+            int note = Main.rand.Next(570, 573);
+            Gore.NewGore(
+                new EntitySource_Misc("StalkerGuitar"),
+                Projectile.Center,
+                Main.rand.NextVector2Circular(1f, 1f),
+                note,
+                Main.rand.NextFloat(0.6f, 0.9f)
+            );
         }
 
         public override void OnKill(int timeLeft)
         {
-            if (SoundEngine.TryGetActiveSound(MusicID, out var music))
-                music.Stop();
-            base.OnKill(timeLeft);
-        }
-
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(MouseRightPressed);
-            writer.Write(MouseLeftPressed);
-            writer.Write(PlayingMusic);
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            MouseRightPressed = reader.ReadBoolean();
-            MouseLeftPressed = reader.ReadBoolean();
-            PlayingMusic = reader.ReadBoolean();
+            if (SoundEngine.TryGetActiveSound(MusicID, out var sound))
+                sound.Stop();
         }
     }
 }
